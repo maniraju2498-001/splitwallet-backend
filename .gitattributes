@@ -1,0 +1,18 @@
+# Normalize line endings: store as LF in git, checkout as native on each OS
+* text=auto eol=lf
+
+# Force these always LF (shell scripts, config)
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.properties text eol=lf
+*.sql text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.md text eol=lf
+
+# Binary files — do not touch line endings
+*.jar binary
+*.png binary
+*.jpg binary
+*.ico binary

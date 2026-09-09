@@ -1,0 +1,66 @@
+# ─────────────────────────────────────────────
+# SplitWallet Backend — .gitignore
+# ─────────────────────────────────────────────
+
+# Maven build output — never commit compiled classes or JARs
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# IDE — IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# IDE — Eclipse
+.classpath
+.project
+.settings/
+
+# IDE — VS Code
+.vscode/
+*.code-workspace
+
+# IDE — NetBeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# OS-generated
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment / secrets — NEVER commit these
+.env
+.env.*
+*.env
+!.env.example
+
+# Application properties that may contain secrets
+# (Keep application.yml — it uses env var placeholders, not hardcoded values)
+# Gitignore any file ending in -secret.yml or -credentials.yml
+*-secret.yml
+*-credentials.yml
+
+# Log files
+*.log
+logs/
+spring.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Maven wrapper (keep the jar — it's needed for CI builds)
+# .mvn/wrapper/maven-wrapper.jar  ← do NOT ignore this
+
+# Test reports
+surefire-reports/

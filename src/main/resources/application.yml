@@ -1,0 +1,55 @@
+server:
+  # Render sets the PORT env var automatically; fallback to 8080 for local dev
+  port: ${PORT:8080}
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: split-wallet-backend
+
+  datasource:
+    # DB_URL must be set in production (Render env vars)
+    # Local default points to the local MySQL instance
+    url: ${DB_URL:jdbc:mysql://localhost:3306/splitwallet?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # Keep connections alive — important for managed DB services (PlanetScale, Railway, etc.)
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 5
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      # 'update' safely adds new columns/tables without destroying existing data
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+
+  sql:
+    init:
+      mode: never
+
+app:
+  jwt:
+    # Override JWT_SECRET in production with a strong random secret (256-bit min)
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250655368566D5971}
+    expiration-ms: 86400000
+
+  cors:
+    # Comma-separated list of allowed frontend origins
+    # Example: https://splitwallet.onrender.com,https://splitwallet.netlify.app
+    # Local default allows the Vite dev server
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
+
+logging:
+  level:
+    com.splitwallet: INFO
+    org.springframework.security: WARN
